@@ -36,7 +36,7 @@ Les favoris et les prompts modifiés sont enregistrés dans le navigateur (`loca
 
 Ouvrir `docs/index.html` dans un navigateur. Aucun serveur ni installation n'est nécessaire.
 
-En ligne, la page est servie par GitHub Pages depuis le dossier `docs/`.
+En ligne : https://idrissialii.github.io/le-bon-nom-ui/ (servie par GitHub Pages depuis le dossier `docs/`).
 
 ## Modifier
 
