@@ -16,7 +16,7 @@
   --mark:#FFE45C; --mark-ink:#151817; --hl:color-mix(in srgb,#FFE45C 75%,transparent);
   --tang:#E0892B; --rose:#DD4F6E; --ok:#1F8A4C; --warn:#B7791F; --err:#C93B3B; --dot:#D9DDDB;
   --shadow:0 1px 2px rgba(20,24,23,.05), 0 8px 24px -12px rgba(20,24,23,.16);
-  --scrim:rgba(14,17,16,.38);
+  --scrim:rgba(14,17,16,.38); --tab-on:rgba(21,24,23,.07); --tab-hover:rgba(21,24,23,.04);
   --display:"Geist", "Segoe UI", system-ui, sans-serif;
   --body:"Geist", "Segoe UI", system-ui, sans-serif;
   --mono:"Geist Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -30,7 +30,7 @@
   --mark:#E9D04F; --mark-ink:#151817; --hl:color-mix(in srgb,#E9D04F 32%,transparent);
   --tang:#F0A24B; --rose:#F07A90; --ok:#4CC386; --warn:#E3B75A; --err:#F07272; --dot:#2A302F;
   --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6);
-  --scrim:rgba(0,0,0,.55);
+  --scrim:rgba(0,0,0,.55); --tab-on:rgba(236,239,238,.09); --tab-hover:rgba(236,239,238,.05);
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
@@ -40,7 +40,7 @@
   --mark:#E9D04F; --mark-ink:#151817; --hl:color-mix(in srgb,#E9D04F 32%,transparent);
   --tang:#F0A24B; --rose:#F07A90; --ok:#4CC386; --warn:#E3B75A; --err:#F07272; --dot:#2A302F;
   --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 28px -14px rgba(0,0,0,.6);
-  --scrim:rgba(0,0,0,.55);
+  --scrim:rgba(0,0,0,.55); --tab-on:rgba(236,239,238,.09); --tab-hover:rgba(236,239,238,.05);
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -89,13 +89,20 @@ button{-webkit-tap-highlight-color:transparent}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .theme-ic .sun{display:none}:root:not([data-theme="light"]) .theme-ic .moon{display:block}}
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-inline:-4px}
 .tabs::-webkit-scrollbar{display:none}
-.tab{position:relative;flex:none;border:0;background:none;cursor:pointer;padding:9px 10px 12px;font-weight:550;font-size:14px;color:var(--muted);display:flex;gap:6px;align-items:baseline;border-radius:8px 8px 0 0}
-.tab small{font-family:var(--mono);font-size:11px;color:var(--faint)}
-.tab:hover{color:var(--ink)}
-.tab::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;border-radius:2px;background:transparent;transition:background-color .2s}
-.tab[aria-selected="true"]{color:var(--ink)}
+.tabs{padding-bottom:8px}
+.tab{position:relative;flex:none;border:0;background:none;cursor:pointer;height:36px;padding:0 12px;font-weight:550;font-size:14px;color:var(--muted);display:flex;gap:7px;align-items:center;border-radius:10px;transition:color .15s, background-color .15s}
+.tab .sec-ic{flex:none;color:var(--faint);transition:color .15s}
+.tab small{display:none;font-family:var(--mono);font-size:11px;color:var(--muted);min-width:22px;height:18px;padding:0 5px;border-radius:9px;background:var(--surface);place-items:center;font-variant-numeric:tabular-nums}
+.tab:hover{color:var(--ink);background:var(--tab-hover)}
+.tab:hover .sec-ic{color:var(--ink)}
+.tab::after{content:"";position:absolute;left:12px;right:12px;bottom:-8px;height:2px;border-radius:2px;background:transparent;transition:background-color .2s}
+.tab[aria-selected="true"]{color:var(--ink);background:var(--tab-on)}
+.tab[aria-selected="true"] .sec-ic{color:var(--ink)}
+.tab[aria-selected="true"] small{display:inline-grid}
 .tab[aria-selected="true"]::after{background:var(--ink)}
-.tab[aria-selected="true"] small{color:var(--muted)}
+.intro h1{display:flex;align-items:center;gap:14px}
+.h-ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+.group-h .sec-ic{align-self:center;color:var(--ink)}
 
 /* Intro de section */
 .intro{padding-block:32px 4px;display:grid;gap:10px}
@@ -213,6 +220,8 @@ button{-webkit-tap-highlight-color:transparent}
   .ib{height:40px;min-width:40px}
   .p-in{padding:16px 16px 40px}
   .p-head h2{font-size:26px}
+  .intro h1{gap:12px}
+  .h-ic{width:38px;height:38px;border-radius:10px}
 }
 @media (prefers-reduced-motion: reduce){.card,.toast,.panel,.scrim{transition:none;animation:none}}
 /* ---------- Sujet générique des démos ---------- */
@@ -2262,8 +2271,21 @@ const cardHTML = e => `<article class="card"><div class="stage" data-id="${e.id}
 let cur = SECTIONS[0], sub = "Tout";
 const results = $(document, "#results");
 function observe() { $$(results, ".stage").forEach(s => io.observe(s)); }
+/* Une icône au trait par section, reprise dans les onglets, le titre et les groupes de résultats */
+const SEC_IC = {
+  animations: `<circle cx="15" cy="12" r="6"/><path d="M2.5 9h4M2 12h4.5M2.5 15h4"/>`,
+  composants: `<rect x="3" y="4" width="18" height="6.5" rx="2"/><rect x="3" y="13.5" width="8" height="6.5" rx="2"/><rect x="14" y="13.5" width="7" height="6.5" rx="2"/>`,
+  apprentissage: `<path d="M12 6.5C10 5 7 4.5 3 5v13c4-.5 7 0 9 1.5 2-1.5 5-2 9-1.5V5c-4-.5-7 0-9 1.5z"/><path d="M12 6.5v13"/>`,
+  video: `<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M10 9.3v5.4l4.6-2.7z"/>`,
+  easing: `<path d="M4 20C11 20 13 4 20 4"/><circle cx="4" cy="20" r="1.3"/><circle cx="20" cy="4" r="1.3"/>`,
+  principes: `<path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-2.8 6a2.8 2.8 0 0 0 5.6 0zM19 7l-2.8 6a2.8 2.8 0 0 0 5.6 0z"/>`,
+  layouts: `<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M10 9.5V20"/>`,
+};
+const secIcon = (S, size = 16) => `<svg class="sec-ic" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SEC_IC[S.id]}</svg>`;
 function renderTabs() {
-  $("#tabs").innerHTML = SECTIONS.map(S => `<button class="tab" role="tab" data-sec="${S.id}" aria-selected="${S === cur && !query}">${S.label}<small>${S.data.length}</small></button>`).join("");
+  $("#tabs").innerHTML = SECTIONS.map(S => `<button class="tab" role="tab" data-sec="${S.id}" aria-selected="${S === cur && !query}">${secIcon(S)}<span>${S.label}</span><small>${S.data.length}</small></button>`).join("");
+  const tb = $("#tabs"), on = $(tb, "[aria-selected=true]");
+  if (on) { const x = on.getBoundingClientRect().left - tb.getBoundingClientRect().left; if (x < 0 || x + on.offsetWidth > tb.clientWidth) tb.scrollLeft += x - 16; }
 }
 let query = "";
 function render() {
@@ -2276,9 +2298,9 @@ function render() {
     $("#chips").innerHTML = "";
     if (!r.length) { results.innerHTML = `<p class="empty">Essaie de décrire ce que tu vois avec d'autres mots, par exemple :</p><div class="chips">${["ça tourne", "ça apparaît en fondu", "la carte se retourne", "menu qui sort du côté", "le nom de la personne en bas"].map(s => `<button class="chip q" data-q="${s}">${s}</button>`).join("")}</div>`; return; }
     const groups = SECTIONS.map(S => [S, r.filter(e => e.sec === S)]).filter(g => g[1].length);
-    results.innerHTML = groups.map(([S, items]) => `<section class="group"><h2 class="group-h">${S.title}<small>${items.length}</small></h2><div class="grid">${items.map(cardHTML).join("")}</div></section>`).join("");
+    results.innerHTML = groups.map(([S, items]) => `<section class="group"><h2 class="group-h">${secIcon(S, 15)}${S.title}<small>${items.length}</small></h2><div class="grid">${items.map(cardHTML).join("")}</div></section>`).join("");
   } else {
-    $("#secTitle").textContent = cur.title; $("#secDesc").textContent = cur.desc + ` ${cur.data.length} entrées.`;
+    $("#secTitle").innerHTML = `<span class="h-ic">${secIcon(cur, 22)}</span>${esc(cur.title)}`; $("#secDesc").textContent = cur.desc + ` ${cur.data.length} entrées.`;
     const gs = [...new Set(cur.data.map(e => e.g))];
     $("#chips").innerHTML = ["Tout", ...gs].map(g => `<button class="chip" data-sub="${esc(g)}" aria-pressed="${g === sub}">${esc(g)}<small>${g === "Tout" ? cur.data.length : cur.data.filter(e => e.g === g).length}</small></button>`).join("");
     const show = sub === "Tout" ? gs : [sub];

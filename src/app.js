@@ -122,8 +122,21 @@ const cardHTML = e => `<article class="card"><div class="stage" data-id="${e.id}
 let cur = SECTIONS[0], sub = "Tout";
 const results = $(document, "#results");
 function observe() { $$(results, ".stage").forEach(s => io.observe(s)); }
+/* Une icône au trait par section, reprise dans les onglets, le titre et les groupes de résultats */
+const SEC_IC = {
+  animations: `<circle cx="15" cy="12" r="6"/><path d="M2.5 9h4M2 12h4.5M2.5 15h4"/>`,
+  composants: `<rect x="3" y="4" width="18" height="6.5" rx="2"/><rect x="3" y="13.5" width="8" height="6.5" rx="2"/><rect x="14" y="13.5" width="7" height="6.5" rx="2"/>`,
+  apprentissage: `<path d="M12 6.5C10 5 7 4.5 3 5v13c4-.5 7 0 9 1.5 2-1.5 5-2 9-1.5V5c-4-.5-7 0-9 1.5z"/><path d="M12 6.5v13"/>`,
+  video: `<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M10 9.3v5.4l4.6-2.7z"/>`,
+  easing: `<path d="M4 20C11 20 13 4 20 4"/><circle cx="4" cy="20" r="1.3"/><circle cx="20" cy="4" r="1.3"/>`,
+  principes: `<path d="M12 4v16M8 20h8M5 7h14"/><path d="M5 7l-2.8 6a2.8 2.8 0 0 0 5.6 0zM19 7l-2.8 6a2.8 2.8 0 0 0 5.6 0z"/>`,
+  layouts: `<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M10 9.5V20"/>`,
+};
+const secIcon = (S, size = 16) => `<svg class="sec-ic" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${SEC_IC[S.id]}</svg>`;
 function renderTabs() {
-  $("#tabs").innerHTML = SECTIONS.map(S => `<button class="tab" role="tab" data-sec="${S.id}" aria-selected="${S === cur && !query}">${S.label}<small>${S.data.length}</small></button>`).join("");
+  $("#tabs").innerHTML = SECTIONS.map(S => `<button class="tab" role="tab" data-sec="${S.id}" aria-selected="${S === cur && !query}">${secIcon(S)}<span>${S.label}</span><small>${S.data.length}</small></button>`).join("");
+  const tb = $("#tabs"), on = $(tb, "[aria-selected=true]");
+  if (on) { const x = on.getBoundingClientRect().left - tb.getBoundingClientRect().left; if (x < 0 || x + on.offsetWidth > tb.clientWidth) tb.scrollLeft += x - 16; }
 }
 let query = "";
 function render() {
@@ -136,9 +149,9 @@ function render() {
     $("#chips").innerHTML = "";
     if (!r.length) { results.innerHTML = `<p class="empty">Essaie de décrire ce que tu vois avec d'autres mots, par exemple :</p><div class="chips">${["ça tourne", "ça apparaît en fondu", "la carte se retourne", "menu qui sort du côté", "le nom de la personne en bas"].map(s => `<button class="chip q" data-q="${s}">${s}</button>`).join("")}</div>`; return; }
     const groups = SECTIONS.map(S => [S, r.filter(e => e.sec === S)]).filter(g => g[1].length);
-    results.innerHTML = groups.map(([S, items]) => `<section class="group"><h2 class="group-h">${S.title}<small>${items.length}</small></h2><div class="grid">${items.map(cardHTML).join("")}</div></section>`).join("");
+    results.innerHTML = groups.map(([S, items]) => `<section class="group"><h2 class="group-h">${secIcon(S, 15)}${S.title}<small>${items.length}</small></h2><div class="grid">${items.map(cardHTML).join("")}</div></section>`).join("");
   } else {
-    $("#secTitle").textContent = cur.title; $("#secDesc").textContent = cur.desc + ` ${cur.data.length} entrées.`;
+    $("#secTitle").innerHTML = `<span class="h-ic">${secIcon(cur, 22)}</span>${esc(cur.title)}`; $("#secDesc").textContent = cur.desc + ` ${cur.data.length} entrées.`;
     const gs = [...new Set(cur.data.map(e => e.g))];
     $("#chips").innerHTML = ["Tout", ...gs].map(g => `<button class="chip" data-sub="${esc(g)}" aria-pressed="${g === sub}">${esc(g)}<small>${g === "Tout" ? cur.data.length : cur.data.filter(e => e.g === g).length}</small></button>`).join("");
     const show = sub === "Tout" ? gs : [sub];
