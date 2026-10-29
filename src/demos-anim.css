@@ -307,7 +307,7 @@
 .acc.on button svg{transform:rotate(180deg)}
 .acc+.acc{margin-top:6px}
 .mini{position:absolute;inset:0;display:grid;place-items:center}
-.mini .scr{position:absolute;inset:0;background:rgba(10,12,24,.45);opacity:0;transition:opacity .3s;pointer-events:none}
+.mini .scr{position:absolute;inset:0;background:rgba(8,10,10,.45);opacity:0;transition:opacity .3s;pointer-events:none}
 .mini .dlg{position:relative;width:180px;background:var(--surface);border-radius:14px;padding:14px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);opacity:0;transform:scale(.88) translateY(10px);transition:all .32s cubic-bezier(.34,1.4,.64,1);pointer-events:none;display:grid;gap:8px;font-size:13px}
 .mini .dlg b{font-size:15px}
 .mini.on .scr{opacity:1}.mini.on .dlg{opacity:1;transform:none;pointer-events:auto}
@@ -378,7 +378,7 @@
 .neon{font-family:var(--display);font-weight:800;font-size:32px;color:#fff;text-shadow:0 0 6px #fff,0 0 14px var(--rose),0 0 30px var(--rose),0 0 50px var(--rose);animation:flick 3s infinite}
 .neonbg{position:absolute;inset:0;background:#0b0c14;display:grid;place-items:center}
 @keyframes flick{0%,18%,22%,25%,53%,57%,100%{opacity:1}20%,24%,55%{opacity:.35}}
-.spot{position:absolute;inset:0;background:radial-gradient(circle 60px at var(--mx,50%) var(--my,50%),transparent 0,transparent 55px,rgba(8,10,20,.82) 62px)}
+.spot{position:absolute;inset:0;background:radial-gradient(circle 60px at var(--mx,50%) var(--my,50%),transparent 0,transparent 55px,rgba(8,10,10,.82) 62px)}
 .trail i{position:absolute;width:12px;height:12px;margin:-6px;border-radius:50%;background:var(--accent);pointer-events:none;left:0;top:0}
 .draw path{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .kb{position:absolute;inset:0;animation:kb 10s ease-in-out infinite alternate;transform-origin:30% 40%}

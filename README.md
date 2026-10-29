@@ -1,8 +1,8 @@
-# Le Bon Mot UI
+# Le Bon Nom UI
 
-Un lexique visuel pour trouver **le bon mot** quand on décrit une interface, une animation ou une vidéo à une IA, à un développeur ou à un graphiste.
+Un lexique visuel pour trouver **le bon nom** quand on décrit une interface, une animation ou une vidéo à une IA, à un développeur ou à un graphiste.
 
-Quand on n'est pas expert en UI/UX, le plus difficile est souvent de savoir comment s'appelle ce qu'on a en tête : « la petite bulle au survol », « le menu qui sort du côté », « la caméra qui avance vers la personne ». Le Bon Mot UI rassemble **502 notions**, chacune avec une démo animée, son nom officiel et un prompt prêt à copier.
+Quand on n'est pas expert en UI/UX, le plus difficile est souvent de savoir comment s'appelle ce qu'on a en tête : « la petite bulle au survol », « le menu qui sort du côté », « la caméra qui avance vers la personne ». Le Bon Nom UI rassemble **502 notions**, chacune avec une démo animée, son nom officiel et un prompt prêt à copier.
 
 ## Contenu
 
@@ -27,7 +27,7 @@ Chaque fiche donne :
 ## Fonctions
 
 - **Recherche par description** : on tape ce qu'on voit (« la carte qui se retourne ») et l'app propose les noms correspondants. Raccourci : `/`.
-- **Mon brief** : le cœur ajoute une fiche à un panier ; l'app assemble un seul prompt qui combine le contexte du projet et tous les éléments choisis.
+- **Mon brief** : le signet ajoute une fiche à un panier ; l'app assemble un seul prompt qui combine le contexte du projet et tous les éléments choisis.
 - **Boucle** : rejoue les démos en continu.
 
 Les favoris et les prompts modifiés sont enregistrés dans le navigateur (`localStorage`) : ils ne quittent pas l'appareil.
@@ -71,5 +71,5 @@ Le contenu et le code ont été rédigés avec l'aide de Claude (Anthropic), pui
 ## Licence
 
 - Code : licence MIT (voir [LICENSE](LICENSE)).
-- Textes des fiches : [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fr). Tu peux les réutiliser en citant « Le Bon Mot UI ».
+- Textes des fiches : [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fr). Tu peux les réutiliser en citant « Le Bon Nom UI ».
 - Crédits tiers : voir [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

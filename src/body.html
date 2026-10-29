@@ -1,34 +1,45 @@
 <header class="top">
   <div class="gut">
     <div class="top-row">
-      <div class="brand"><span class="mark" aria-hidden="true"></span>Le Bon Mot <em>UI</em></div>
+      <a class="brand" href="#animations" data-sec="animations" aria-label="Le Bon Nom UI, accueil">Le Bon Nom <em>UI</em></a>
       <label class="search" for="q">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" type="search" autocomplete="off" placeholder="Décris ce que tu vois : « la bulle au survol », « la carte qui se retourne »…" aria-label="Rechercher par nom ou par description">
-        <kbd>/</kbd>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Décris ce que tu vois : « la bulle au survol », « la carte qui se retourne »…" aria-label="Rechercher par nom ou par description">
+        <kbd aria-hidden="true">/</kbd>
+        <button type="button" class="clear" id="qClear" aria-label="Effacer la recherche"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </label>
-      <button id="loopBtn" class="tbtn" aria-pressed="false" title="Rejouer les démos en boucle">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg><span class="lbl">Boucle</span>
-      </button>
-      <button id="briefBtn" class="tbtn primary" title="Ouvrir mon brief">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8.2 3.3 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.7 0 6 3.7 4.5 7.3C19.5 16.4 12 21 12 21z"/></svg><span class="lbl">Mon brief</span><span id="briefCount" class="count">0</span>
-      </button>
+      <div class="actions">
+        <button id="themeBtn" class="tbtn icon theme-ic" type="button" aria-label="Changer de thème" title="Mode clair ou sombre">
+          <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>
+          <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        </button>
+        <button id="loopBtn" class="tbtn" type="button" aria-pressed="false" title="Rejouer les démos en boucle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg><span class="lbl">Boucle</span>
+        </button>
+        <button id="briefBtn" class="tbtn primary" type="button" title="Ouvrir mon brief">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4.5V3h6v1.5M9 10h6M9 14h4"/></svg><span class="lbl">Mon brief</span><span id="briefCount" class="count">0</span>
+        </button>
+      </div>
     </div>
     <nav class="tabs" id="tabs" role="tablist" aria-label="Sections"></nav>
   </div>
 </header>
 <main class="gut">
-  <section class="intro" id="intro">
+  <section class="intro" id="intro" aria-live="polite">
     <h1 id="secTitle">Animations</h1>
     <p id="secDesc"></p>
-    <div class="chips" id="chips"></div>
+    <div class="chips" id="chips" role="group" aria-label="Filtrer par famille"></div>
   </section>
   <div id="results"></div>
   <footer class="foot">
-    <p><b>Le Bon Mot UI</b> · <span id="total"></span> notions avec démo. Les noms en gras sont les termes anglais que les IA, les développeurs et les outils comprennent le mieux ; le français sert à t'y retrouver.</p>
-    <p>Astuce : appuie sur <b>/</b> pour chercher, ajoute des fiches au brief avec le cœur, puis colle le brief complet dans ta conversation avec l'IA.</p>
+    <ol class="steps">
+      <li><span><b>Cherche</b> en décrivant ce que tu vois, ou parcours les sections. Raccourci : <b>/</b>.</span></li>
+      <li><span><b>Ajoute au brief</b> les fiches qui t'intéressent avec le bouton signet.</span></li>
+      <li><span><b>Copie le brief</b> et colle-le dans ta conversation avec l'IA.</span></li>
+    </ol>
+    <p><b>Le Bon Nom UI</b> · <span id="total"></span> notions avec démo. Le nom en gras est le terme anglais que les IA, les développeurs et les outils comprennent le mieux ; le français sert à t'y retrouver. <a href="https://github.com/IdrissiAlii/le-bon-mot-ui" target="_blank" rel="noopener">Code source sur GitHub</a>.</p>
   </footer>
 </main>
 <div id="scrim" class="scrim" hidden></div>
-<aside id="panel" class="panel" hidden aria-label="Détail"></aside>
+<aside id="panel" class="panel" hidden role="dialog" aria-modal="true" aria-label="Détail"></aside>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
