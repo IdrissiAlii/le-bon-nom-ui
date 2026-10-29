@@ -1,0 +1,8 @@
+# Variante de la page pour l'artifact Claude (régénérée par build.sh)
+artifact.html
+
+# Système et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,34 @@
+<header class="top">
+  <div class="gut">
+    <div class="top-row">
+      <div class="brand"><span class="mark" aria-hidden="true"></span>Le Bon Mot <em>UI</em></div>
+      <label class="search" for="q">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" autocomplete="off" placeholder="Décris ce que tu vois : « la bulle au survol », « la carte qui se retourne »…" aria-label="Rechercher par nom ou par description">
+        <kbd>/</kbd>
+      </label>
+      <button id="loopBtn" class="tbtn" aria-pressed="false" title="Rejouer les démos en boucle">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></svg><span class="lbl">Boucle</span>
+      </button>
+      <button id="briefBtn" class="tbtn primary" title="Ouvrir mon brief">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8.2 3.3 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.7 0 6 3.7 4.5 7.3C19.5 16.4 12 21 12 21z"/></svg><span class="lbl">Mon brief</span><span id="briefCount" class="count">0</span>
+      </button>
+    </div>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Sections"></nav>
+  </div>
+</header>
+<main class="gut">
+  <section class="intro" id="intro">
+    <h1 id="secTitle">Animations</h1>
+    <p id="secDesc"></p>
+    <div class="chips" id="chips"></div>
+  </section>
+  <div id="results"></div>
+  <footer class="foot">
+    <p><b>Le Bon Mot UI</b> · <span id="total"></span> notions avec démo. Les noms en gras sont les termes anglais que les IA, les développeurs et les outils comprennent le mieux ; le français sert à t'y retrouver.</p>
+    <p>Astuce : appuie sur <b>/</b> pour chercher, ajoute des fiches au brief avec le cœur, puis colle le brief complet dans ta conversation avec l'IA.</p>
+  </footer>
+</main>
+<div id="scrim" class="scrim" hidden></div>
+<aside id="panel" class="panel" hidden aria-label="Détail"></aside>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
